@@ -1,17 +1,17 @@
 'use strict';
 
-var reload = {
+var loader = {
     meta: {
-        id: 'reload',
-        name: 'Reload',
-        description: 'Module to reload other modules'
+        id: 'loader',
+        name: 'Loader Module',
+        description: 'Module to load, unload and reload other modules'
     },
     dependencies: []
 };
 
 // todo: PERMISSIONS!!!!1
 
-reload.init = function (modsys) {
+loader.init = function (modsys) {
     modsys.addCommand(this, 'load', function (client, message, args) {
         // todo: DRY
         if (args.length != 1) {
@@ -61,4 +61,4 @@ reload.init = function (modsys) {
     return true;
 };
 
-module.exports = reload;
+module.exports = loader;
