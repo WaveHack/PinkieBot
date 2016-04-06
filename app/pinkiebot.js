@@ -14,10 +14,7 @@ try {
 try {
     require.resolve('../config.json');
 } catch (e) {
-    var fs = require('fs');
-    fs.createReadStream('../config.json.template').pipe(fs.createWriteStream('../config.json'));
-
-    console.log('Configuration config.json missing. A default one has been generated. Update it and re-run the script.');
+    console.log('Configuration config.json missing. Copy config.json.dist to config.json, edit it and re-run the script.');
     process.exit();
 }
 
