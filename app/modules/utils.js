@@ -29,8 +29,9 @@ utils.init = function (modsys) {
     });
 
     modsys.addCommand(this, 'serverid', function (client, message, args) {
-        // todo: only in non-pm
-        global.helpers.reply(client, message, ('Server ID: ' + message.channel.server.id));
+        if (message.channel.constructor.name === 'TextChannel') {
+            global.helpers.reply(client, message, ('Server ID: ' + message.channel.server.id));
+        }
     });
 
     modsys.addCommand(this, 'channelid', function (client, message, args) {
