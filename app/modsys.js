@@ -46,9 +46,15 @@ modsys.load = function (moduleId) {
         return false;
     }
 
+    // Some temp validation
+    if (typeof module.meta.id === 'undefined' || module.meta.id !== moduleId) {
+        this.lastError = ('Module id must be same as filename for module ' + moduleId);
+        return false;
+    }
+
     // todo: check if dependencies are met. if not, load them?
 
-    // todo: load config.json
+    // todo: load config.json if module is in its own directory
 
     if (typeof module.init !== 'function') {
         this.lastError = 'Module is missing an init method';
