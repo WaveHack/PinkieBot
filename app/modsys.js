@@ -12,6 +12,12 @@ var modsys = {
     lastError: null
 };
 
+/**
+ * Attempts to load a module.
+ *
+ * @param {string} moduleId
+ * @returns {boolean}
+ */
 modsys.load = function (moduleId) {
     moduleId = moduleId.toLowerCase();
 
@@ -80,6 +86,12 @@ modsys.load = function (moduleId) {
     return true;
 };
 
+/**
+ * Attempts to unload a module.
+ *
+ * @param {string} moduleId
+ * @returns {boolean}
+ */
 modsys.unload = function (moduleId) {
     moduleId = moduleId.toLowerCase();
 
@@ -108,6 +120,12 @@ modsys.unload = function (moduleId) {
     return true;
 };
 
+/**
+ * Attempts to reload a module.
+ *
+ * @param {string} moduleId
+ * @returns {boolean}
+ */
 modsys.reload = function (moduleId) {
     // Wrapper call to load() because I'm too lazy to switch between load and reload every other parse error
     if (!this.isLoaded(moduleId)) {
@@ -125,6 +143,14 @@ modsys.disable = function (moduleId) {
     // todo
 };
 
+/**
+ * Registers a hook callback for a module.
+ *
+ * @param {object} module
+ * @param {string} hook
+ * @param {function} callback
+ * @returns {modsys}
+ */
 modsys.addHook = function (module, hook, callback) {
     var moduleId = module.meta.id;
 
@@ -141,6 +167,12 @@ modsys.addHook = function (module, hook, callback) {
     return this;
 };
 
+/**
+ * Proceses all registered hook callbacks.
+ *
+ * @param {string} hook
+ * @param {Client} client
+ */
 modsys.processHooks = function (hook, client /*, arguments*/) {
     if (typeof this.hooks[hook] === 'undefined') {
         return;
@@ -166,6 +198,12 @@ modsys.processHooks = function (hook, client /*, arguments*/) {
     }
 };
 
+/**
+ * Check if a module is loaded.
+ *
+ * @param {string} moduleId
+ * @returns {boolean}
+ */
 modsys.isLoaded = function (moduleId) {
     return (moduleId in this.modules.loaded);
 };
@@ -176,6 +214,14 @@ modsys.isActive = function (moduleId) {
 
 // Helper methods
 
+/**
+ * Helper function to register a message hook from one or more commands (aliases).
+ *
+ * @param {object} module
+ * @param {string|string[]} command
+ * @param {function} callback
+ * @returns {modsys}
+ */
 modsys.addCommand = function (module, command, callback) {
     var prefix = (this.config.bot.prefix || '.');
 
