@@ -29,6 +29,14 @@ utils.init = function (modsys) {
         global.helpers.reply(client, message, 'Hi, my name is PinkieBot, a lightweight discord.js bot created by Sharqy! - https://github.com/WaveHack/PinkieBot.');
     });
 
+    modsys.addCommand(this, 'version', function (client, message, args) {
+        var proc = require('child_process').spawn('git', ['log', '-1', '--format=[%h] %s']);
+
+        proc.stdout.on('data', function (data) {
+            global.helpers.reply(client, message, data);
+        });
+    });
+
     modsys.addCommand(this, 'commands', function (client, message, args) {
         global.helpers.reply(client, message, 'Under construction!');
     });
