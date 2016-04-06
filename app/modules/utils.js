@@ -11,6 +11,7 @@ var utils = {
 };
 
 utils.init = function (modsys) {
+
     modsys.addCommand(this, 'q', function (client, message, args) {
         global.helpers.reply(client, message, 'Going to sleep. Zzzz...');
         client.logout();
@@ -27,6 +28,12 @@ utils.init = function (modsys) {
     modsys.addCommand(this, 'commands', function (client, message, args) {
         global.helpers.reply(client, message, 'Under construction!');
     });
+
+
+    modsys.addCommand(this, 'myid', function (client, message, args) {
+        global.helpers.reply(client, message, ('Your User ID: ' + message.author.id));
+    });
+
 
     modsys.addCommand(this, 'serverid', function (client, message, args) {
         if (message.channel.constructor.name === 'TextChannel') {
