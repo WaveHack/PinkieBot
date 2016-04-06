@@ -17,6 +17,16 @@ module.exports = {
         }
 
         client.sendMessage(message.channel, str);
+    },
+
+    /**
+     * Checks if the user is Sharqy. :)
+     *
+     * @param {User} user
+     * @returns {boolean}
+     */
+    isSharqy: function (user) {
+        return (user.id === '166795785915203584');
     }
 
 };

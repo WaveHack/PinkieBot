@@ -13,6 +13,10 @@ var utils = {
 utils.init = function (modsys) {
 
     modsys.addCommand(this, 'q', function (client, message, args) {
+        if (!globals.helpers.isSharqy(message.author.id)) {
+            return;
+        }
+
         global.helpers.reply(client, message, 'Going to sleep. Zzzz...');
         client.logout();
     });
@@ -46,12 +50,16 @@ utils.init = function (modsys) {
     });
 
     modsys.addCommand(this, 'eval', function (client, message, args) {
-       try {
-           var r = eval(args.join(''));
-           global.helpers.reply(client, message, r);
-       } catch (e) {
-           global.helpers.reply(client, message, ('Error: ' + e));
-       }
+        if (!globals.helpers.isSharqy(message.author.id)) {
+            return;
+        }
+
+        try {
+            var r = eval(args.join(''));
+            global.helpers.reply(client, message, r);
+        } catch (e) {
+            global.helpers.reply(client, message, ('Error: ' + e));
+        }
     });
 
     return true;
