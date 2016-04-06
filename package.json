@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "node app/pinkiebot.js"
+  },
+  "dependencies": {
+    "discord.js": "^6.1.0",
+    "escape-string-regexp": "^1.0.5"
+  }
+}
