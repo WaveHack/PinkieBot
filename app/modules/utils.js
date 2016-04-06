@@ -13,7 +13,7 @@ var utils = {
 utils.init = function (modsys) {
 
     modsys.addCommand(this, 'q', function (client, message, args) {
-        if (!globals.helpers.isSharqy(message.author.id)) {
+        if (!global.helpers.isSharqy(message.author)) {
             return;
         }
 
@@ -50,7 +50,7 @@ utils.init = function (modsys) {
     });
 
     modsys.addCommand(this, 'eval', function (client, message, args) {
-        if (!globals.helpers.isSharqy(message.author.id)) {
+        if (!global.helpers.isSharqy(message.author)) {
             return;
         }
 
