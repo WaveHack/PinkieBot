@@ -23,7 +23,7 @@ modsys.load = function (moduleId) {
         return false;
     }
 
-    var modulePath = ('./modules/' + moduleId + '/' + moduleId + '.module.js');
+    var modulePath = ('./modules/' + moduleId);
 
     // Force remove module from require cache, so we can re-parse the file
     try {

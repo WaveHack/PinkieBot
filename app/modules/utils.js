@@ -1,6 +1,6 @@
 'use strict';
 
-var core = {
+var utils = {
     meta: {
         id: 'core',
         name: 'Core',
@@ -10,7 +10,7 @@ var core = {
     commands: {}
 };
 
-core.init = function (modsys) {
+utils.init = function (modsys) {
     modsys.addCommand(this, 'q', function (client, message, args) {
         global.helpers.reply(client, message, 'Going to sleep. Zzzz...');
         client.logout();
@@ -28,7 +28,16 @@ core.init = function (modsys) {
         global.helpers.reply(client, message, 'Under construction!');
     });
 
+    modsys.addCommand(this, 'serverid', function (client, message, args) {
+        // todo: only in non-pm
+        global.helpers.reply(client, message, message.channel.server.id);
+    });
+
+    modsys.addCommand(this, 'channelid', function (client, message, args) {
+        global.helpers.reply(client, message, message.channel.id);
+    });
+
     return true;
 };
 
-module.exports = core;
+module.exports = utils;
