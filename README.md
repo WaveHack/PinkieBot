@@ -16,7 +16,7 @@ Modules can be loaded, unloaded and reloaded on the fly using the core module. L
 
 ### Creating modules
 
-Modules can either reside as a single file at `/app/modules/[modulename].js`, or as a directory at `/app/modules/[modulename]/[modulename].js`.
+Modules can either reside as a single file at `/app/modules/[modulename].js`, or in a directory at `/app/modules/[modulename]/[modulename].js`.
  
 Here's the minimum content a module should have:
 
