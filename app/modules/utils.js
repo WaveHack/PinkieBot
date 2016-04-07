@@ -27,7 +27,7 @@ utils.initModuleCommands = function (modsys) {
 
 utils.initHelpCommands = function (modsys) {
 
-    modsys.addCommand(this, ['bot', 'help', 'info', 'pinkiebot'], function (client, message, args) {
+    modsys.addCommand(this, 'info', function (client, message, args) {
         global.helpers.reply(client, message, 'Hi, my name is PinkieBot, a lightweight discord.js bot created by Sharqy! - https://github.com/WaveHack/PinkieBot.');
     });
 

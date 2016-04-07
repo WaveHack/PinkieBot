@@ -215,10 +215,21 @@ modsys.isActive = function (moduleId) {
 // Helper methods
 
 /**
- * Helper function to register a message hook from one or more commands (aliases).
+ * Helper function to register a message hook for a command.
+ *
+ * Do not include any command prefixes, this is added automatically. If you
+ * want your own custom prefix (or no prefix), use a manual message hook with
+ * modsys.addHook() instead.
+ *
+ * Only one optional command parameter is supported in the form of 'cmd [arg]'.
+ * But you can add spaces in the command name e.g. command = 'module load
+ * [module]'. Argument must be at end of line and may not contain spaces.
+ *
+ * If you want more sophisticated functionality for handling arguments, do a
+ * pull request. :^)
  *
  * @param {object} module
- * @param {string|string[]} command
+ * @param {string} command
  * @param {function} callback
  * @returns {modsys}
  */
@@ -229,29 +240,33 @@ modsys.addCommand = function (module, command, callback) {
     // todo: manage command dictionary
     // todo: later per server/channel/user
 
+    var regexString = '';
+    var hasArg = false;
+
+    // Check if this is a command with an argument
+    if (/\[\w+]$/.test(command)) {
+        command = command.replace(/(\s\[\w+])$/, ''); // strip argument
+
+        regexString = ('^' + escapeStringRegexp(prefix + command) + '\\s(\\w+)$');
+        hasArg = true;
+    } else {
+        regexString = ('^' + escapeStringRegexp(prefix + command) + '$');
+    }
+
+    //console.log('Adding command \'' + command + '\'' + (hasArg ? ' with argument' : '') + ' with regex string "' + regexString + '"');
+
     this.addHook(module, 'message', function (client, message) {
-        var regexString = '';
-
-        if (Array.isArray(command)) {
-            regexString = '^' + escapeStringRegexp(prefix) + '(?:';
-
-            regexString += command.filter(function (value) {
-                return escapeStringRegexp(value);
-            }).join('|');
-
-            regexString += ')';
-        } else {
-            regexString = ('^' + escapeStringRegexp(prefix + command));
-        }
-
-        if (!new RegExp(regexString, 'i').test(message.content)) {
+        if (!new RegExp(regexString).test(message.content)) {
             return;
         }
 
-        var args = message.content.split(' ');
-        args.shift();
+        var arg = null;
 
-        callback(client, message, args);
+        if (hasArg) {
+            arg = new RegExp(regexString).exec(message.content)[1];
+        }
+
+        callback(client, message, arg);
     });
 
     return this;
