@@ -1,17 +1,35 @@
 'use strict';
 
-var loader = {
+var core = {
     meta: {
-        id: 'loader',
-        name: 'Loader',
-        description: 'Module to load, unload and reload other modules'
+        id: 'core',
+        name: 'Core',
+        description: 'Core module to manage other modules'
     },
     dependencies: []
 };
 
 // todo: PERMISSIONS!!!!1
 
-loader.init = function (modsys) {
+core.init = function (modsys) {
+
+    /*
+     * .module
+     * .module load [module]
+     * .module unload [module]
+     * .module reload [module]
+     * .module enable [module]
+     * .module disable [module]
+     *
+     * .module loaded
+     * .module loaded [module]
+     * .module active
+     * .module active [module]
+     *
+     * .commands
+     * .commands [module]
+     */
+
     modsys.addCommand(this, 'load', function (client, message, args) {
         // todo: DRY
         if (args.length != 1) {
@@ -61,4 +79,4 @@ loader.init = function (modsys) {
     return true;
 };
 
-module.exports = loader;
+module.exports = core;

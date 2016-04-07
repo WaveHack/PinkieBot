@@ -30,7 +30,7 @@ try {
 var modsys = require('./modsys');
 modsys.config = config;
 
-modsys.load('loader');
+modsys.load('core');
 modsys.load('utils');
 
 // todo: from config.autoload[]

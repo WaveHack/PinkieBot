@@ -95,8 +95,8 @@ modsys.load = function (moduleId) {
 modsys.unload = function (moduleId) {
     moduleId = moduleId.toLowerCase();
 
-    if (moduleId === 'loader') {
-        this.lastError = 'Loader module may not be unloaded';
+    if (moduleId === 'core') {
+        this.lastError = 'Core module may not be unloaded';
         return false;
     }
 
