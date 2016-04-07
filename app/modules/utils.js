@@ -58,11 +58,12 @@ utils.initMiscCommands = function (modsys) {
     });
 
     modsys.addHook(this, 'message', function (client, message) {
-        if (!global.helpers.isSharqy(message.author)) {
+        if (!/^\.eval/.test(message.content)) {
             return;
         }
 
-        if (!/^\.eval/.test(message.content)) {
+        if (!global.helpers.isSharqy(message.author)) {
+            global.helpers.reply(client, message, '( ͡° ͜ʖ ͡°)');
             return;
         }
 
