@@ -3,7 +3,7 @@
 var loader = {
     meta: {
         id: 'loader',
-        name: 'Loader Module',
+        name: 'Loader',
         description: 'Module to load, unload and reload other modules'
     },
     dependencies: []
