@@ -11,7 +11,6 @@ var utils = {
 };
 
 utils.init = function (modsys) {
-    this.initModuleCommands(modsys);
     this.initHelpCommands(modsys);
     this.initBotControlCommands(modsys);
     this.initMiscCommands(modsys);
@@ -19,19 +18,13 @@ utils.init = function (modsys) {
     return true;
 };
 
-utils.initModuleCommands = function (modsys) {
-
-    // todo
-
-};
-
 utils.initHelpCommands = function (modsys) {
 
-    modsys.addCommand(this, 'info', function (client, message, args) {
+    modsys.addCommand(this, 'info', function (client, message) {
         global.helpers.reply(client, message, 'Hi, my name is PinkieBot, a lightweight discord.js bot created by Sharqy! - https://github.com/WaveHack/PinkieBot.');
     });
 
-    modsys.addCommand(this, 'version', function (client, message, args) {
+    modsys.addCommand(this, 'version', function (client, message) {
         var proc = require('child_process').spawn('git', ['log', '-1', '--format=[%h] %s']);
 
         proc.stdout.on('data', function (data) {
@@ -39,7 +32,7 @@ utils.initHelpCommands = function (modsys) {
         });
     });
 
-    modsys.addCommand(this, 'commands', function (client, message, args) {
+    modsys.addCommand(this, 'commands', function (client, message) {
         global.helpers.reply(client, message, 'Under construction!');
     });
 
@@ -47,7 +40,7 @@ utils.initHelpCommands = function (modsys) {
 
 utils.initBotControlCommands = function (modsys) {
 
-    modsys.addCommand(this, 'q', function (client, message, args) {
+    modsys.addCommand(this, 'q', function (client, message) {
         if (!global.helpers.isSharqy(message.author)) {
             return;
         }
@@ -60,35 +53,40 @@ utils.initBotControlCommands = function (modsys) {
 
 utils.initMiscCommands = function (modsys) {
 
-    modsys.addCommand(this, 'ping', function (client, message, args) {
+    modsys.addCommand(this, 'ping', function (client, message) {
         global.helpers.reply(client, message, 'Pong');
     });
 
-    modsys.addCommand(this, 'eval', function (client, message, args) {
+    modsys.addHook(this, 'message', function (client, message) {
         if (!global.helpers.isSharqy(message.author)) {
             return;
         }
 
+        if (!/^\.eval/.test(message.content)) {
+            return;
+        }
+
+        var stringToEval = message.content.replace(/^(\.eval\s)/, '');
         try {
-            var r = eval(args.join(''));
-            global.helpers.reply(client, message, r);
+            var result = eval(stringToEval);
+            global.helpers.reply(client, message, result);
         } catch (e) {
-            global.helpers.reply(client, message, ('Error: ' + e));
+            global.helpers.reply(client, message, ('Something went wrong: ' + e));
         }
     });
 
-    modsys.addCommand(this, 'myid', function (client, message, args) {
+    modsys.addCommand(this, 'myid', function (client, message) {
         global.helpers.reply(client, message, ('Your User ID: ' + message.author.id));
     });
 
 
-    modsys.addCommand(this, 'serverid', function (client, message, args) {
+    modsys.addCommand(this, 'serverid', function (client, message) {
         if (message.channel.constructor.name === 'TextChannel') {
             global.helpers.reply(client, message, ('Server ID: ' + message.channel.server.id));
         }
     });
 
-    modsys.addCommand(this, 'channelid', function (client, message, args) {
+    modsys.addCommand(this, 'channelid', function (client, message) {
         global.helpers.reply(client, message, ('Channel ID: ' + message.channel.id));
     });
 
