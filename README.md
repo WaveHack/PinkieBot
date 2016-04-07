@@ -10,9 +10,9 @@ Under construction.
 
 PinkieBot uses my own module system `modsys` which I originally wrote in Perl (now partially converted to NodeJS). Modsys resides at `/app/modsys.js` and is somewhat documented. Instead of wrapping everything, I've decided to keep it simple and flexible by using discord.js objects directly. Please consult [their documentation](http://discordjs.readthedocs.org/) for usage on those. 
 
-From within modules one can register event hooks and chat commands to be executed when discord.js receives and distributes them across the modules.
+From within modules one can register commands and add event hooks to be executed when discord.js receives events, which are distributed along modules hooks.
  
-Modules can be loaded, unloaded and reloaded on the fly using the core module. Later on I'm planning functionality to enable and disable certian modules in certain situations (servers, channels, users, server roles).
+Modules can be loaded, unloaded and reloaded on the fly using the core module. Later on I'm planning functionality to enable and disable modules, and having permissions/ACL for certain situations (servers, channels, users, server roles).
 
 ### Creating modules
 
