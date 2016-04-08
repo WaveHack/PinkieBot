@@ -203,11 +203,21 @@ modsys.processHooks = function (hook, client /*, arguments*/) {
  * @returns {boolean}
  */
 modsys.isLoaded = function (moduleId) {
-    return (moduleId in this.modules.loaded);
+    return (moduleId.toLowerCase() in this.modules.loaded);
 };
 
 modsys.isActive = function (moduleId) {
     // todo
+};
+
+modsys.getModule = function (moduleId) {
+    moduleId = moduleId.toLowerCase();
+
+    if (!this.isLoaded(moduleId)) {
+        return null;
+    }
+
+    return this.modules.loaded[moduleId];
 };
 
 // Helper methods
