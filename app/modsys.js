@@ -31,18 +31,16 @@ modsys.load = function (moduleId) {
 
     var modulePath = ('./modules/' + moduleId);
 
-    // Force remove module from require cache, so we can re-parse the file
-    try {
-        delete require.cache[require.resolve(modulePath)];
-    } catch (e) {}
-
     // See if module file exists
     try {
-        require.resolve(modulePath);
+        var resolvedModulePath = require.resolve(modulePath);
     } catch (e) {
         this.lastError = e.message;
         return false;
     }
+
+    // Force remove module from require cache, so we can re-parse the file
+    delete require.cache[resolvedModulePath];
 
     // Parse it
     try {
@@ -53,7 +51,7 @@ modsys.load = function (moduleId) {
     }
 
     // Some temp validation
-    if (typeof module.meta.id === 'undefined' || module.meta.id !== moduleId) {
+    if ((typeof module.meta.id === 'undefined') || (module.meta.id !== moduleId)) {
         this.lastError = ('Module id must be same as filename for module ' + moduleId);
         return false;
     }
